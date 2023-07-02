@@ -42,12 +42,10 @@ if ! DirExist(A_Temp . "\ahkofi")
 ;@Ahk2Exe-SetDescription 
 ;@Ahk2Exe-SetLanguage 0x0809
 ;@Ahk2Exe-SetName ahkofi
-;@Ahk2Exe-SetOrigFilename run.ahk
+;@Ahk2Exe-SetOrigFilename ahkofi.ahk
 ;@Ahk2Exe-SetVersion 0.1.0.0
 
-; ===== macro setups =========================================================
-
-#Include main.ahk
+; ===== includes =============================================================
 
 ; ===== debugging hotkeys ====================================================
 
@@ -58,5 +56,4 @@ if ! DirExist(A_Temp . "\ahkofi")
 ; ===== function call ========================================================
 
 if (!A_IsCompiled and A_LineFile == A_ScriptFullPath) or A_IsCompiled  ; only call function if it was ran directly (ie not #Include'd)
-	obj := ahkofi_()
-	obj.start()
+	MsgBox("hi")
