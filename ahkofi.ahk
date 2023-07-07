@@ -34,7 +34,7 @@ if ! DirExist(A_Temp . "\ahkofi")
 ;@Ahk2Exe-PostExec "UPX.exe" "%A_WorkFileName%"
 ;@Ahk2Exe-Cont  -q --all-methods --compress-icons=0, 0,, 1
 ;@Ahk2Exe-SetMainIcon ahkofi.ico
-;@Ahk2Exe-UpdateManifest 0, ahkofi, 0.1.1.0, 0
+;@Ahk2Exe-UpdateManifest 0, ahkofi, 0.1.0.0, 0
 ;@Ahk2Exe-UseResourceLang 0x0809
 
 ;@Ahk2Exe-SetCompanyName Cornelius-Figgle
@@ -47,11 +47,9 @@ if ! DirExist(A_Temp . "\ahkofi")
 
 ; ===== includes =============================================================
 
-; ===== debugging hotkeys ====================================================
+; ===== main functions =======================================================
 
-;@Ahk2Exe-IgnoreBegin
 
-;@Ahk2Exe-IgnoreEnd
 
 ; ===== function call ========================================================
 
