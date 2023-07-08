@@ -59,19 +59,10 @@ LoadMenuFile(AargsMap) {
 		If (MenuName == "Default") {
 			Continue
 		} Else If (AargsMap[MenuName]) {
-			If (Integer(IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "usePowershellList")))
-				ListCmd := "powershell.exe /c "
-			Else
-				ListCmd := "cmd.exe /C "
-			ListCmd := ListCmd . IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "listCmd")
-		
-			If (Integer(IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "usePowershellCmd")))
-				RunCmd := "powershell.exe /c "
-			Else
-				RunCmd := "cmd.exe /C "
-			RunCmd := ListCmd . IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "runCmd")
+			PopulateCmd := IniRead(base_path . "\Menus\" . MenuName . ".ini", "main", "populate")
+			ExecCmd := IniRead(base_path . "\Menus\" . MenuName . ".ini", "main", "exec")
 
-			Return [ListCmd, RunCmd]
+			Return [PopulateCmd, ExecCmd]
 		} Else {
 			Continue
 		}
