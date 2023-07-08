@@ -51,20 +51,43 @@ if ! DirExist(A_Temp . "\Ahkofi")
 
 ; ===== main functions =======================================================
 
-LoadMenuFile() {
-	
+LoadMenuFile(AargsMap) {
+	Loop Files base_path . "\Menus\*.ini", "FR" {
+		SplitPath(A_LoopFileName, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive)
+		MenuName := OutNameNoExt
+
+		If (MenuName == "Default") {
+			Continue
+		} Else If (AargsMap[MenuName]) {
+			If (Integer(IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "usePowershellList")))
+				ListCmd := "powershell.exe /c "
+			Else
+				ListCmd := "cmd.exe /C "
+			ListCmd := ListCmd . IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "listCmd")
+		
+			If (Integer(IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "usePowershellCmd")))
+				RunCmd := "powershell.exe /c "
+			Else
+				RunCmd := "cmd.exe /C "
+			RunCmd := ListCmd . IniRead(base_path . "\Menus\" . MenuName . ".ini", "config", "runCmd")
+
+			Return [ListCmd, RunCmd]
+		} Else {
+			Continue
+		}
+	}
 }
 
-CreateGUI() {
+CreateGUI(MenuCfg) {
 	MainBox := Gui("+AlwaysOnTop +ToolWindow", "Ahkofi")
-	MainBox.Add("ComboBox", "vTestChoice simple", ["one", "two", "three"])
+	MainBox.Add("ComboBox", "vTestChoice simple", MenuCfg[1])
 	return MainBox
 }
 
 Main() {
-	AargsMap := CLIParse(A_Args)
-	
-	MainBox := CreateGUI()
+	AargsMap := CLIParse(A_Args).LoopArgs()
+
+	MainBox := CreateGUI(LoadMenuFile(AargsMap))
 	MainBox.Show()
 }
 
