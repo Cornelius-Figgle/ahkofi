@@ -1,6 +1,6 @@
 /************************************************************************
- * @description A rofi alternative for Windows (written in AutoHotkey v2)
- * @file ArgsParser
+ * @description Command-line arguement parser for Autohotkey
+ * @file ArgsParser.ahk
  * @author Cornelius-Figgle
  * @date 2023-07-02
  * @version 0.1.0.0

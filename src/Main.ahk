@@ -1,6 +1,6 @@
 /************************************************************************
- * @description A rofi alternative for Windows (written in AutoHotkey v2)
- * @file ahkofi
+ * @description The main script for Ahkofi
+ * @file Main.ahk
  * @author Cornelius-Figgle
  * @date 2023-07-02
  * @version 0.1.0.0
@@ -15,16 +15,16 @@ KeyHistory(0)
 ; Persistent(true)
 
 src_path := "."
-bin_path := A_Temp . "\ahkofi"
+bin_path := A_Temp . "\Ahkofi"
 if A_IsCompiled
 	base_path := bin_path
 else
 	base_path := src_path
-TraySetIcon(path_base . "\ico\ahkofi.ico")
+TraySetIcon(A_WorkingDir . "..\ico\Ahkofi.ico")
 
 /*@Ahk2Exe-Keep
-if ! DirExist(A_Temp . "\ahkofi")
-	DirCreate(A_Temp . "\ahkofi")
+if ! DirExist(A_Temp . "\Ahkofi")
+	DirCreate(A_Temp . "\Ahkofi")
 */
 
 ; ===== Ahk2Exe Directives ===================================================
@@ -41,8 +41,8 @@ if ! DirExist(A_Temp . "\ahkofi")
 ;@Ahk2Exe-SetCopyright MIT
 ;@Ahk2Exe-SetDescription 
 ;@Ahk2Exe-SetLanguage 0x0809
-;@Ahk2Exe-SetName ahkofi
-;@Ahk2Exe-SetOrigFilename ahkofi.ahk
+;@Ahk2Exe-SetName Ahkofi
+;@Ahk2Exe-SetOrigFilename Main.ahk
 ;@Ahk2Exe-SetVersion 0.1.0.0
 
 ; ===== includes =============================================================
@@ -50,6 +50,10 @@ if ! DirExist(A_Temp . "\ahkofi")
 #Include ArgsParser.ahk
 
 ; ===== main functions =======================================================
+
+LoadMenuFile() {
+	
+}
 
 CreateGUI() {
 	MainBox := Gui("+AlwaysOnTop +ToolWindow", "Ahkofi")
