@@ -20,7 +20,7 @@ if A_IsCompiled
 	base_path := bin_path
 else
 	base_path := src_path
-TraySetIcon(A_WorkingDir . "..\ico\Ahkofi.ico")
+TraySetIcon(base_path . "\.." . "\ico\Ahkofi.ico")
 
 /*@Ahk2Exe-Keep
 if ! DirExist(A_Temp . "\Ahkofi")
