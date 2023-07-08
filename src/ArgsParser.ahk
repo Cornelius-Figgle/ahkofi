@@ -28,39 +28,42 @@ class CLIParse extends object {
 		; note: sets class attributes
 		This.Aargs := P_Aargs
 		This.Delims := P_Delims
+
+		Return This.LoopArgs()
 	}
 	__Delete() {
 	}
 	
-	
-	AargsMap := Map()
+	LoopArgs() {
+		AargsMap := Map()
 
-	Loop(This.Aargs.Length) {
-		If (IsDelim(This.Aargs[A_Index])) {
-			If (IsDelim(This.Aargs[A_Index+1])) {
-				; arg is switch
-				Aargs[This.Aargs[A_Index]] := True
-			} Else {
-				; arg has value
-				If (IsFloat(This.Aargs[A_Index]))
-					Aargs[This.Aargs[A_Index]] := Float(This.Aargs[A_Index+1])
-				Else If (IsInteger(This.Aargs[A_Index]))
-					Aargs[This.Aargs[A_Index]] := Integer(This.Aargs[A_Index+1])
-				Else
-					Aargs[This.Aargs[A_Index]] := This.Aargs[A_Index+1]
+		Loop(This.Aargs.Length) {
+			If (This.IsDelim(This.Aargs[A_Index])) {
+				If (This.IsDelim(This.Aargs[A_Index+1])) {
+					; arg is switch
+					AargsMap[This.Aargs[A_Index]] := True
+				} Else {
+					; arg has value
+					If (IsFloat(This.Aargs[A_Index]))
+						AargsMap[This.Aargs[A_Index]] := Float(This.Aargs[A_Index+1])  ; convert to float
+					Else If (IsInteger(This.Aargs[A_Index]))
+						AargsMap[This.Aargs[A_Index]] := Integer(This.Aargs[A_Index+1])  ; convert to integer
+					Else
+						AargsMap[This.Aargs[A_Index]] := This.Aargs[A_Index+1]  ; leave as string
+					A_Index := A_Index++  ; increment this to avoid having to the the 'value' one again
+				}
 			}
 		}
-	}
 	
+		Return AargsMap
+	}
 
 	IsDelim(P_ArgToCheck) {
 		Loop (This.Delims.Length) {
-			If (SubStr(P_ArgToCheck, 1, StrLen(This.Delims[A_index])) = This.Delims[A_Index]) {
+			If (SubStr(P_ArgToCheck, 1, StrLen(This.Delims[A_index])) = This.Delims[A_Index])
 				Return True
-			} Else If {
+			Else
 				continue
-			}
-
 			Return False
 		}
 	}

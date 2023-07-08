@@ -17,9 +17,9 @@ KeyHistory(0)
 src_path := "."
 bin_path := A_Temp . "\ahkofi"
 if A_IsCompiled
-	path_base := bin_path
+	base_path := bin_path
 else
-	path_base := src_path
+	base_path := src_path
 TraySetIcon(path_base . "\ico\ahkofi.ico")
 
 /*@Ahk2Exe-Keep
@@ -47,6 +47,8 @@ if ! DirExist(A_Temp . "\ahkofi")
 
 ; ===== includes =============================================================
 
+#Include ArgsParser.ahk
+
 ; ===== main functions =======================================================
 
 CreateGUI() {
@@ -56,6 +58,8 @@ CreateGUI() {
 }
 
 Main() {
+	AargsMap := CLIParse(A_Args)
+	
 	MainBox := CreateGUI()
 	MainBox.Show()
 }
