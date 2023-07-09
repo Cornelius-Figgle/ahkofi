@@ -62,7 +62,10 @@ LoadMenuFile(AargsMap) {
 			PopulateCmd := IniRead(base_path . "\Menus\" . MenuName . ".ini", "main", "populate")
 			ExecCmd := IniRead(base_path . "\Menus\" . MenuName . ".ini", "main", "exec")
 
-			Return [PopulateCmd, ExecCmd]
+			Return [
+				ComObject("WScript.Shell").Exec(PopulateCmd).StdOut.ReadAll(),
+				ComObject("WScript.Shell").Exec(ExecCmd).StdOut.ReadAll()
+			]
 		} Else {
 			Continue
 		}
